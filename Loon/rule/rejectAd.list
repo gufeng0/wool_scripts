@@ -9,7 +9,7 @@
 #!system = iOS, iPadOS
 #!system_version =
 #!loon_version =
-#!date=2026-03-31 23:00:00
+#!date=2026-04-26 09:30:00
 #!support=约9392行
 #!proxy-select=REJECT
 #############################################
@@ -2256,6 +2256,10 @@ DOMAIN-SUFFIX, kkpgv2.kankan.com
 DOMAIN-SUFFIX, cpm.cm.kankan.com
 DOMAIN-SUFFIX, count.cpm.cm.kankan.com
 
+# > 途虎养车
+DOMAIN, analytics.tuhu.com
+DOMAIN, ta.tuhu.cn
+
 
 
 # >>>>>>>>>>>>>>> ✅ U ✅ <<<<<<<<<<<<<<
@@ -3214,6 +3218,10 @@ DOMAIN-SUFFIX, tfogc.com
 #DOMAIN-KEYWORD, volc
 AND,((NOT,((DOMAIN,volcengine-kdocs-cache.wpscdn.cn))), (NOT,((DOMAIN,vod-settings.volcvod.com))), (NOT,((DOMAIN,volcengine-kdocs-cache.wpscdn.cn))), (OR,((DOMAIN-KEYWORD,volc))))
 DOMAIN-KEYWORD, umeng
+DOMAIN-SUFFIX, 1a-1791.com
+DOMAIN-SUFFIX, rumble.com
+
+
 # Ad-Stir
 DOMAIN-SUFFIX, ad-stir.com 
 
@@ -3808,5 +3816,6 @@ DOMAIN, zgsdk.zhugeio.com
 DOMAIN-SUFFIX, zedo.com
 DOMAIN-SUFFIX, d8.zedo.com
 DOMAIN-SUFFIX, z1.zedo.com
+
 
 # >>>>>>>>>>>>>>> ✅ 其他 ✅ <<<<<<<<<<<<<<
