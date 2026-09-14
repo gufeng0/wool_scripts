@@ -51,6 +51,8 @@ jobs:
           DISABLE_KEYWORDS = [
               'caiyunapp',        # 彩云天气 activity 规则
           ]
+          # 彩云天气区域冲突时，额外保留这条 fork 自有规则（上游没有）
+          KEEP_LINES = ['DOMAIN,ad.cyapi.cn,REJECT']
 
           conflicts = subprocess.run(
               ['git', 'diff', '--name-only', '--diff-filter=U'],
@@ -64,11 +66,17 @@ jobs:
               src = open(f).read()
               def resolve(m):
                   head, upstream = m.group(1), m.group(2)
-                  h, u = head.strip(), upstream.strip()
-                  # 规则1：涉及禁用关键词时，取上游内容并注释掉
+                  u = upstream.strip()
+                  # 规则1：涉及禁用关键词时，取上游内容并注释掉，同时保留 fork 自有规则
                   if any(k in u for k in DISABLE_KEYWORDS):
-                      return '# ' + u.replace('\n', '\n# ') + '\n'
-                  # 规则2：默认取上游（fork 无自定义意图的区域跟随上游）
+                      body = u.replace('\n', '\n# ')
+                      keep = '\n'.join(l for l in KEEP_LINES
+                                       if l not in u and l not in head)
+                      return ('# ' + body + ('\n' + keep if keep else '') + '\n')
+                  # 规则2：HEAD 侧独有（上游没有）且在保留清单中的行 → 保留
+                  if any(k in head for k in KEEP_LINES) and not any(k in u for k in KEEP_LINES):
+                      return head.strip() + '\n'
+                  # 规则3：默认取上游（fork 无自定义意图的区域跟随上游）
                   return u + '\n'
               src = re.sub(
                   r'<<<<<<< HEAD\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]+\n',
